@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.aluno.appveiculo.dao.UsuarioDAO;
+import com.example.aluno.appveiculo.database.DataBase;
+import com.example.aluno.appveiculo.model.Administrador;
 import com.example.aluno.appveiculo.model.Usuario;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -16,6 +19,11 @@ public class PrincipalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        DataBase conect = new DataBase(getApplicationContext());
+
+//        Administrador adm = new Administrador(0, "Zezin da Covas", "ze", "123", "");
+//        new UsuarioDAO(conect).gravar(adm);
 
         CallLoginView();
     }

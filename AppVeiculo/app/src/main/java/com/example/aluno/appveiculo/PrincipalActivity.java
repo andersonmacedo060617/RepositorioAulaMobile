@@ -7,7 +7,10 @@ import android.os.Bundle;
 import com.example.aluno.appveiculo.dao.UsuarioDAO;
 import com.example.aluno.appveiculo.database.DataBase;
 import com.example.aluno.appveiculo.model.Administrador;
+import com.example.aluno.appveiculo.model.Cliente;
 import com.example.aluno.appveiculo.model.Usuario;
+
+import java.util.Date;
 
 public class PrincipalActivity extends AppCompatActivity {
 
@@ -21,6 +24,18 @@ public class PrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         DataBase conect = new DataBase(getApplicationContext());
+
+        UsuarioDAO uDao = new UsuarioDAO(conect);
+        uDao.ApagarUsuarios();
+        if(uDao.getQuantidadeAdministrador() == 0){
+            Administrador adm = new Administrador(1, "Zezin das Coves", "ze", "123", "");
+            uDao.gravar(adm);
+        }
+        if(uDao.getQuantidadeCliente()==0){
+            Cliente cli = new Cliente(2, "Pedrin Miranda", "ped", "123", false, new Date());
+        }
+
+
 
 //        Administrador adm = new Administrador(0, "Zezin da Covas", "ze", "123", "");
 //        new UsuarioDAO(conect).gravar(adm);

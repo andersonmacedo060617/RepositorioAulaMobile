@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.aluno.appveiculo.dao.UsuarioDAO;
+import com.example.aluno.appveiculo.database.DataBase;
 import com.example.aluno.appveiculo.model.Administrador;
 import com.example.aluno.appveiculo.model.Usuario;
 
@@ -28,7 +29,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Usuario u = new Usuario(0,"",login.getText().toString(),senha.getText().toString());
 
-                u = UsuarioDAO.findLoginAndSenha(u);
+                DataBase conect = new DataBase(getApplicationContext());
+                UsuarioDAO uDao = new UsuarioDAO(conect);
+                u = uDao.findLoginAndSenha(u);
 
                 if(u == null){
                     login.setText("");

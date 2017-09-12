@@ -3,6 +3,7 @@ package com.example.aluno.appveiculo.dao;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.example.aluno.appveiculo.database.DataBase;
 import com.example.aluno.appveiculo.model.Administrador;
@@ -152,5 +153,39 @@ public class UsuarioDAO {
             con.close();
         }
 
+    }
+
+    public List<Usuario> findByName(String s) {
+        SQLiteDatabase con = banco.getWritableDatabase();
+        try {
+            String sql = "select * from " + DataBase.TABLE_USUARIO + " where " + DataBase.USUARIO_NOME + " like '%" + s + "%'";
+            Cursor c = con.rawQuery (sql,null);
+            List<Usuario> lista = new ArrayList<>();
+            while (c.moveToNext()){
+                Usuario user = null;
+                if (c.getInt( c.getColumnIndex( DataBase.USUARIO_TIPO ) ) ==0  ){
+                    user = new Administrador();
+                    ((Administrador)user).
+                            setFoto(c.getString( c.getColumnIndex( DataBase.USUARIO_FOTO ) ));
+                }else{
+                    user = new Cliente();
+                    ((Cliente)user).
+                            setPago(c.getInt( c.getColumnIndex( DataBase.USUARIO_PAGO ) )==1);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date dt = sdf.parse(c.getString( c.getColumnIndex( DataBase.USUARIO_VENCIMENTO ) ));
+                    ((Cliente)user).setVencimento(dt);
+                }
+                user.setId(c.getInt( c.getColumnIndex( DataBase.USUARIO_ID ) ));
+                user.setNome(c.getString( c.getColumnIndex( DataBase.USUARIO_NOME ) ));
+                user.setLogin(c.getString( c.getColumnIndex( DataBase.USUARIO_LOGIN ) ));
+                user.setSenha(c.getString( c.getColumnIndex( DataBase.USUARIO_SENHA ) ));
+                lista.add(user);
+            }
+            return lista;
+        } catch (ParseException e) {
+            return null;
+        } finally {
+            con.close();
+        }
     }
 }

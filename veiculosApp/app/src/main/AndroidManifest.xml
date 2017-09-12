@@ -19,7 +19,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".AdministradorActivity" />
         <activity android:name=".ClienteActivity" />
-        <activity android:name=".ListUsuarioActivity"></activity>
+        <activity android:name=".ListUsuarioActivity" />
+        <activity android:name=".CadUsuarioActivity"></activity>
     </application>
 
 </manifest>

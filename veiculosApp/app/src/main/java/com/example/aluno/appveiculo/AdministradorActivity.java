@@ -12,7 +12,7 @@ import com.example.aluno.appveiculo.model.Usuario;
 public class AdministradorActivity extends AppCompatActivity {
 
     TextView tvAdmNome;
-    Button btn;
+    Button btnClienteList;
 
     final int LIST_USER_VIEW = 1;
 
@@ -25,7 +25,7 @@ public class AdministradorActivity extends AppCompatActivity {
         Usuario user = (Usuario)getIntent().getExtras().getSerializable("usuario");
         tvAdmNome.setText("ADMINISTRADOR: "+user.getNome());
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnClienteList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),ListUsuarioActivity.class);
@@ -38,6 +38,6 @@ public class AdministradorActivity extends AppCompatActivity {
 
     private void Binding() {
         tvAdmNome = (TextView) findViewById(R.id.tvAdmNome);
-        btn = (Button) findViewById(R.id.btnCliente);
+        btnClienteList = (Button) findViewById(R.id.btnCliente);
     }
 }

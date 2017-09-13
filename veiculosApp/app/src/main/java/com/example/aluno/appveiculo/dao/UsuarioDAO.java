@@ -188,4 +188,14 @@ public class UsuarioDAO {
             con.close();
         }
     }
+
+    public void apagar(int idx) {
+        SQLiteDatabase con = banco.getWritableDatabase();
+        try{
+            con.delete(DataBase.TABLE_USUARIO, DataBase.USUARIO_ID + " = " + idx, null);
+        }finally {
+            con.close();
+        }
+
+    }
 }

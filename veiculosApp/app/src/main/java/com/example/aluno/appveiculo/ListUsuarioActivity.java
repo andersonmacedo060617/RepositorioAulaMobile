@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,8 +24,9 @@ public class ListUsuarioActivity extends AppCompatActivity {
     TextView search;
     ImageButton btnSearch;
     ListView listaUser;
-    Button btn;
+    Button btnNewUsuario;
     static final int CADUSER_VIEW = 1;
+    List<Usuario> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class ListUsuarioActivity extends AppCompatActivity {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnNewUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent itn = new Intent(getApplicationContext(), CadUsuarioActivity.class);
@@ -49,12 +51,37 @@ public class ListUsuarioActivity extends AppCompatActivity {
                 startActivityForResult(itn, CADUSER_VIEW);
             }
         });
+
+        listaUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                Intent itn = new Intent(getApplicationContext(), CadUsuarioActivity.class);
+                itn.putExtra("op", ECrud.visualizar);
+                itn.putExtra("user", lista.get(i));
+                startActivityForResult(itn, CADUSER_VIEW);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Se retornou da tela de cadadstro
+        if(requestCode == CADUSER_VIEW){
+            //E o resultado foi com sucesso
+            if(resultCode == 1){
+                search.setText("");
+                preencheListView();
+            }
+        }
     }
 
     private void preencheListView() {
         //Buscar os usuários
         DataBase banco = new DataBase(getApplicationContext());
-        List<Usuario> lista;
+
         if(search.getText().toString().isEmpty()){
             lista = new UsuarioDAO(banco).findAll();
         }else{
@@ -79,6 +106,6 @@ public class ListUsuarioActivity extends AppCompatActivity {
         search = (TextView) findViewById(R.id.edtSearchNome);
         btnSearch = (ImageButton) findViewById(R.id.btnSearchUser);
         listaUser = (ListView) findViewById(R.id.listUser);
-        btn = (Button) findViewById(R.id.btnNewUser);
+        btnNewUsuario = (Button) findViewById(R.id.btnNewUser);
     }
 }

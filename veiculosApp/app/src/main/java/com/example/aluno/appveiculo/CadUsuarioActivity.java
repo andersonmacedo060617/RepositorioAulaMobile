@@ -47,14 +47,9 @@ public class CadUsuarioActivity extends AppCompatActivity {
             rdbCliente.setChecked(u instanceof Cliente);
 
             tvId.setText(Integer.toString(u.getId()));
-
-            edtNome.setEnabled(false);
-            edtLogin.setEnabled(false);
-            edtSenha.setEnabled(false);
-            rdbAdmin.setEnabled(false);
-            rdbCliente.setEnabled(false);
-
             btnGravaUsuario.setText("Alterar");
+
+            controls(false);
         }
 
         btnGravaUsuario.setOnClickListener(new View.OnClickListener(){
@@ -62,24 +57,41 @@ public class CadUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    //
-                    Usuario u;
-                    //Preenher
-                    if(rdbAdmin.isChecked()){
-                        u = new Administrador();
-                    }else{
-                        u = new Usuario();
+                    if(op == ECrud.inserir || op == ECrud.alterar){
+                        //
+                        Usuario u;
+                        //Preenher
+                        if(rdbAdmin.isChecked()){
+                            u = new Administrador();
+                        }else{
+                            u = new Usuario();
+                        }
+
+                        u.setNome(edtNome.getText().toString());
+                        u.setLogin(edtLogin.getText().toString());
+                        u.setSenha(edtSenha.getText().toString());
+
+                        DataBase banco = new DataBase(getApplicationContext());
+                        if(op == ECrud.inserir){
+                            new UsuarioDAO(banco).grava(u);
+                        }else{
+                            Usuario ui = (Usuario) getIntent().getExtras().getSerializable("user");
+                            u.setId(u.getId());
+                            new UsuarioDAO(banco).alterar(u);
+                        }
+
+                        Toast.makeText(getApplicationContext(), "Usuario cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                        setResult(1);
+                        finish();
+
+                    }else if(op == ECrud.visualizar){
+                        controls(true);
+                        op = ECrud.alterar;
+                        btnGravaUsuario.setText("Gravar");
+                        btnApagarUsuario.setVisibility(View.INVISIBLE);
                     }
 
-                    u.setNome(edtNome.getText().toString());
-                    u.setLogin(edtLogin.getText().toString());
-                    u.setSenha(edtSenha.getText().toString());
 
-                    DataBase banco = new DataBase(getApplicationContext());
-                    new UsuarioDAO(banco).grava(u);
-                    Toast.makeText(getApplicationContext(), "Usuario cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-                    setResult(1);
-                    finish();
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(), "Erro ao salvar!!!", Toast.LENGTH_LONG).show();
                 }
@@ -99,6 +111,14 @@ public class CadUsuarioActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void controls(boolean valor){
+        edtNome.setEnabled(valor);
+        edtLogin.setEnabled(valor);
+        edtSenha.setEnabled(valor);
+        rdbAdmin.setEnabled(valor);
+        rdbCliente.setEnabled(valor);
     }
 
     private void biding() {

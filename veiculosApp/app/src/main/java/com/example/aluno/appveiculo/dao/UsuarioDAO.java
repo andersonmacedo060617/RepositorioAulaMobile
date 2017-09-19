@@ -198,4 +198,28 @@ public class UsuarioDAO {
         }
 
     }
+
+    public void alterar(Usuario user) {
+        SQLiteDatabase con = banco.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        //cv.put(DataBase.USUARIO_ID,user.getId());
+        cv.put(DataBase.USUARIO_NOME,user.getNome());
+        cv.put(DataBase.USUARIO_LOGIN,user.getLogin());
+        cv.put(DataBase.USUARIO_SENHA,user.getSenha());
+        if (user instanceof Administrador){
+            cv.put(DataBase.USUARIO_TIPO,0);
+            cv.put(DataBase.USUARIO_FOTO,((Administrador) user).getFoto());
+        }else{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            cv.put(DataBase.USUARIO_TIPO,1);
+            cv.put(DataBase.USUARIO_PAGO, ((Cliente)user).isPago()?1:0 );
+            cv.put(DataBase.USUARIO_VENCIMENTO, sdf.format(((Cliente)user).getVencimento()) );
+        }
+        con.update(DataBase.TABLE_USUARIO
+                ,cv
+                , DataBase.USUARIO_ID + "=" + user.getId()
+                , null);
+        con.close();
+    }
 }

@@ -1,0 +1,76 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "vr.viannajr.app.principal"
+        }
+    }
+}
